@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Game!</title>
+</head>
+<body>
+ <input type="range" id='spd' min='1' max='5' step='1'>
+ <canvas id='mycanvas' width='1000' height='1000'></canvas>
+ <script type="text/javascript">
+
+var canvas = document.getElementById('mycanvas');
+
+context= canvas.getContext('2d');
+context.fillStyle='black';
+context.fillRect(100,300,50,50);
+context.moveTo(100, 390);
+context.lineTo(700 , 390);
+context.stroke();
+var user_pos=300;
+var rect_height,
+dist;
+var score=0;
+
+var val=0;
+document.onkeydown=function (evnt){
+
+ if(evnt.keyCode==38&&val==0){
+console.log(document.getElementById('spd').value);
+var temp,count_pos=0;
+temp=setInterval(function(){
+context.clearRect(100,user_pos,50,50);
+user_pos-=2;
+context.fillStyle='black';
+context.fillRect(100,user_pos,50,50);
+count_pos++;
+if(count_pos==160){move_down();clearInterval(temp);}
+val=1;},4);
+
+
+
+ 
+ }
+ 
+}
+function move_down(){
+	var temp,count_pos=0;
+temp=setInterval(function(){
+context.clearRect(100,user_pos,50,50);
+user_pos+=2;
+context.fillStyle='black';
+context.fillRect(100,user_pos,50,50);
+count_pos++;
+if(count_pos==160){clearInterval(temp);val=0;}
+},4);
+}
+var requestAnimFrame =  window.requestAnimationFrame ||
+                    window.webkitRequestAnimationFrame ||
+                    window.mozRequestAnimationFrame ||
+                    window.oRequestAnimationFrame ||
+                    window.msRequestAnimationFrame;
+var p1,p2;
+var p=function (){
+
+ var rect_height=~~((Math.random()*100)+100);
+var rect_width=~~((Math.random()*10)+50);
+ var time = ~~((Math.random()*400)+200);
+ var rect_pos=900;
+ var count=0;
+  p2=
+setTimeout(
+	function(){
+ context.fillStyle='red';
+ context.fillRect(rect_pos,370-rect_height,rect_width,rect_height);
+  p1=setInterval(function(){
+    context.clearRect(rect_pos,370-rect_height,rect_width,rect_height);	
+ 	context.fillStyle='red';
+ 	rect_pos-=1;
+    context.fillRect(rect_pos,370-rect_height,rect_width,rect_height);
+   
+   if((rect_height>370-(user_pos+50)&&(rect_pos>=100-rect_width&&rect_pos<=150)))
+    	{for (var i = 1; i < 99999; i++)
+        window.clearInterval(i);
+        document.body.innerHTML="";document.write("Your score:"+score);}
+    else if(rect_pos<100&&count==0){console.log('good');score+=10;count++;}
+    
+     } ,
+1);},time);
+
+
+}
+
+
+setInterval(
+function(){requestAnimFrame(p);} , 3000);
+
+function clear_times(){
+clearInterval(p1);clearTimeout(p2);//clearInterval(p);
+}
+ </script>
+
+
+
+</body>
+</html>
