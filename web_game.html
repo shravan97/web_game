@@ -28,6 +28,13 @@ var user_pos=290;
 
 var score=0;
 
+document.onkeypress=function (evnt){
+ if(evnt.keyCode==32){
+   evnt.preventDefault();
+ }
+	
+}
+
 var val=0;
 var boy={pos:290};
 var imageObj = new Image();
