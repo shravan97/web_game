@@ -1,38 +1,62 @@
-
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Game!</title>
+  <style>
+  #mycanvas{
+  background: blue;
+  }
+  #score{
+    float: right;
+    }</style>
 </head>
 <body>
- <input type="range" id='spd' min='1' max='5' step='1'>
+ <input type="range" id='spd' min='0.1' max='3.5' step='0.7'>
+ <div id="score"></div>
  <canvas id='mycanvas' width='1000' height='1000'></canvas>
  <script type="text/javascript">
 
 var canvas = document.getElementById('mycanvas');
 
 context= canvas.getContext('2d');
-context.fillStyle='black';
-context.fillRect(100,300,50,50);
-context.moveTo(100, 390);
-context.lineTo(700 , 390);
+//context.fillStyle='black';
+//context.fillRect(100,300,50,50);
+context.moveTo(300, 390);
+context.lineTo(1000 , 390);
 context.stroke();
-var user_pos=300;
-var rect_height,
-dist;
+var user_pos=290;
+
 var score=0;
 
 var val=0;
+var boy={pos:290};
+var imageObj = new Image();
+
+      imageObj.onload = function() {
+        context.drawImage(imageObj, 100, 300,70,100);
+      };
+      imageObj.src = 'frame5.png';
+   var imageObj_up = new Image();
+   var imageObj_down = new Image();
+   imageObj_up.src='Jumpup.png';
+   imageObj_down.src='Jumpfall.png';
+ function main_game(){     
 document.onkeydown=function (evnt){
 
  if(evnt.keyCode==38&&val==0){
 console.log(document.getElementById('spd').value);
 var temp,count_pos=0;
 temp=setInterval(function(){
-context.clearRect(100,user_pos,50,50);
+/*context.clearRect(100,user_pos,50,50);
 user_pos-=2;
 context.fillStyle='black';
-context.fillRect(100,user_pos,50,50);
+context.fillRect(100,user_pos,50,50);*/
+context.clearRect( 100, 300,70,100);
+boy.pos-=2;
+context.fillStyle='blue';
+context.fillRect(100, boy.pos,100,120);
+context.drawImage(imageObj_up, 100, boy.pos,70,100);
+
 count_pos++;
 if(count_pos==160){move_down();clearInterval(temp);}
 val=1;},4);
@@ -42,61 +66,125 @@ val=1;},4);
  
  }
  
+ if(evnt.keyCode==39){
+shoot(boy.pos);
+ }
+
 }
+
+var rect={pos:0,ht:0,wth:0};
+var enemy_clear=0;
 function move_down(){
 	var temp,count_pos=0;
 temp=setInterval(function(){
-context.clearRect(100,user_pos,50,50);
-user_pos+=2;
-context.fillStyle='black';
-context.fillRect(100,user_pos,50,50);
+context.clearRect(100,boy.pos,70,100);
+boy.pos+=2;
+/*context.fillStyle='black';
+context.fillRect(100,boy.pos,50,50);
+*/context.drawImage(imageObj_down, 100, boy.pos,70,100);
+
 count_pos++;
-if(count_pos==160){clearInterval(temp);val=0;}
+if(count_pos==160){context.clearRect(100,boy.pos,70,100);
+                   context.drawImage(imageObj, 100, boy.pos,70,100);
+                   clearInterval(temp);val=0;}
 },4);
 }
+
+var p1,p2;
+var p=function (){
+
+var enemy={hgt:0};
+ rect.ht=~~((Math.random()*100)+100);
+rect.wth=~~((Math.random()*10)+50);
+
+ var time = ~~((Math.random()*50)+100);
+ console.log(enemy.hgt);
+ var presence=Math.random();
+ var fillcolor;
+ if(presence>0.5)
+  {enemy.hgt=0;fillcolor='red';}
+ else {enemy.hgt=~~((Math.random()*50)+50);fillcolor='yellow';}
+ rect.pos=900;
+ var count=0;
+  p2=function(){
+ context.fillStyle='red';
+ context.fillRect(rect.pos,370-rect.ht,rect.wth,rect.ht);
+  
+ context.fillStyle=fillcolor;
+ context.fillRect(rect.pos,370-rect.ht-enemy.hgt,30,40); 
+  p1=setInterval(function(){
+   context.clearRect(rect.pos,370-rect.ht,rect.wth,rect.ht);	
+   
+   context.clearRect(rect.pos,370-rect.ht-enemy.hgt,30,40); 
+
+   context.fillStyle='red';
+ 	 rect.pos-=2;
+   context.fillRect(rect.pos,370-rect.ht,rect.wth,rect.ht);
+   if(enemy_clear!=1){
+   context.fillStyle=fillcolor;
+   context.fillRect(rect.pos,370-rect.ht-enemy.hgt,30,40); 
+  }
+
+else {enemy.hgt=0;fillcolor='red';enemy_clear=0;}
+   if((rect.ht+enemy.hgt>370-(boy.pos+50)&&(rect.pos>=100-rect.wth&&rect.pos<=170)))
+    	{for (var i = 1; i < 99999; i++)
+        window.clearInterval(i);
+        document.body.innerHTML="";document.write("Your score:"+score);}
+    else if(rect.pos<100&&count==0){console.log('good');score+=10;document.getElementById('score').innerHTML=score;count++;}
+    
+     } ,
+4);};
+p2();
+//window.webkitRequestAnimationFrame(p);
+
+
+}
+function clear_enemy(x,y){
+  console.log('clearing..');
+  context.clearRect(x,y,100,100);
+   enemy_clear=1;
+}
+var m;
+function shoot(pos){
+  context.fillStyle='black';
+  context.fillRect(100,pos,20,20);
+  var bullet={pos:100};
+ m = setInterval(function(){
+ context.clearRect(bullet.pos,pos,20,20);
+ bullet.pos+=4;
+ if(bullet.pos>=850)
+ context.clearRect(bullet.pos,pos,20,20);
+ else{
+ context.fillStyle='black';
+ context.fillRect(bullet.pos,pos,20,20);
+ }
+ var k = context.getImageData(bullet.pos+23,pos,1,1).data;
+ var k1= context.getImageData(bullet.pos+23,pos-5,1,1).data;
+ /*console.log(bullet.pos);
+ console.log(k);
+ */if((k[0]==255&&k[1]==255&&k[2]==0)||((k1[0]==255&&k1[1]==255&&k1[2]==0)))
+  {console.log("shot !");clear_enemy(bullet.pos,pos);}
+ //if(k[0]==0){}
+ //if(bullet.pos>=1000)clearInterval(m);
+  },20);
+}
+
+
+
+function clear_times(){
+clearInterval(p1);clearTimeout(p2);//clearInterval(p);
+} 
+ p();
+ }
 var requestAnimFrame =  window.requestAnimationFrame ||
                     window.webkitRequestAnimationFrame ||
                     window.mozRequestAnimationFrame ||
                     window.oRequestAnimationFrame ||
                     window.msRequestAnimationFrame;
-var p1,p2;
-var p=function (){
 
- var rect_height=~~((Math.random()*100)+100);
-var rect_width=~~((Math.random()*10)+50);
- var time = ~~((Math.random()*400)+200);
- var rect_pos=900;
- var count=0;
-  p2=
-setTimeout(
-	function(){
- context.fillStyle='red';
- context.fillRect(rect_pos,370-rect_height,rect_width,rect_height);
-  p1=setInterval(function(){
-    context.clearRect(rect_pos,370-rect_height,rect_width,rect_height);	
- 	context.fillStyle='red';
- 	rect_pos-=1;
-    context.fillRect(rect_pos,370-rect_height,rect_width,rect_height);
-   
-   if((rect_height>370-(user_pos+50)&&(rect_pos>=100-rect_width&&rect_pos<=150)))
-    	{for (var i = 1; i < 99999; i++)
-        window.clearInterval(i);
-        document.body.innerHTML="";document.write("Your score:"+score);}
-    else if(rect_pos<100&&count==0){console.log('good');score+=10;count++;}
-    
-     } ,
-1);},time);
+ setInterval(
+function(){requestAnimFrame(main_game);} , 3000);
 
-
-}
-
-
-setInterval(
-function(){requestAnimFrame(p);} , 3000);
-
-function clear_times(){
-clearInterval(p1);clearTimeout(p2);//clearInterval(p);
-}
  </script>
 
 
