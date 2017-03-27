@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mailets</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		*
+		{
+			font-family: 'Varela Round', sans-serif;
+		}
+		ul
+		{
+			list-style-type: none;
+		}
+		.description li.inline
+		{
+			display: inline;
+		}
+		input
+		{
+			border: 1px solid white;
+			color: gray;
+		}
+		.collapsed, a.collapse
+		{
+			font-weight: bold;
+			color: black;
+		}
+		.collapsed:hover
+		{
+			color:#23527c;
+			text-decoration: none;
+		}
+		.wrapper
+		{
+			width: 700px;
+			border-right: 1px solid #cecbcb;
+			border-left: 1px solid #cecbcb;
+			border-bottom: 1px solid #cecbcb;
+		}
+		.card
+		{
+			box-shadow: 5px 5px 5px silver;
+			padding: 5px;
+		}
+		.saver
+		{
+			padding: 5px;
+		}
+
+	</style>
+</head>
+<body>
+
+<div class="wrapper container">
+	<h1>Processors</h1>
+	<div class="processor">
+		<h3>Processor</h3>
+		<ul class="description">
+
+			<li class="property inline">
+				state: <input type="text" name="" value="root">
+			</li>
+			<li class="property inline">
+				enableJmx: <input type="text" name="" value="true">
+			</li>
+		</ul>
+		<ul class="processor-list">
+			<li class="card">
+				<div class="card-header" role="tab" id="headingTwo">
+					<h3 class="mb-0">
+						<a class="collapsed" data-toggle="collapse" href="#elem1" aria-expanded="false" aria-controls="elem1">
+							Mailet
+						</a>
+					</h3>
+				</div>
+				<div id="elem1" role="tab" aria-labelledby="headingTwo" class="element collapse">
+				<ul class="description">
+					<li class="property inline">
+						match: <input type="text" name="" value="All">
+					</li>
+					<li class="property inline">
+						class: <input type="text" name="" value="PostmasterAlias">
+					</li>
+				</ul>
+				</div>
+			</li>
+
+			<li class="card">
+				<div class="card-header" role="tab" id="heading2">
+					<h3 class="mb-0">
+						<a class="collapsed" data-toggle="collapse" href="#elem2" aria-expanded="false" aria-controls="elem2">
+							Mailet
+						</a>
+					</h3>
+				</div>
+				<div id="elem2" role="tab" aria-labelledby="heading2" class="element collapse">
+				<ul class="description">
+					<li class="property inline">
+						match: <input type="text" name="" value="RelayLimit=30">
+					</li>
+					<li class="property inline">
+						class: <input type="text" name="" value="Null">
+					</li>
+				</ul>
+				</div>
+			</li>
+			<li class="card">
+				<div class="card-header" role="tab" id="heading3">
+					<h3 class="mb-0">
+						<a class="collapsed" data-toggle="collapse" href="#elem3" aria-expanded="false" aria-controls="elem3">
+							Mailet
+						</a>
+					</h3>
+				</div>
+				<div id="elem3" role="tab" aria-labelledby="heading2" class="element collapse">
+				<ul class="description">
+					<li class="property inline">
+						match: <input type="text" name="" value="SMTPAuthSuccessful">
+					</li>
+					<li class="property inline">
+						class: <input type="text" name="" value="ToProcessor">
+					</li>
+					<li class="property card">
+						processor
+					</li>
+				</ul>
+				</div>
+			</li>
+			
+		</ul>
+		
+	</div>
+	<div class="processor">
+		<h3>Processor</h3>
+		<ul class="description">
+
+			<li class="property inline">
+				state: <input type="text" name="" value="transport">
+			</li>
+			<li class="property inline">
+				enableJmx: <input type="text" name="" value="true">
+			</li>
+		</ul>
+		<ul class="processor-list">
+			<li class="card">
+				<div class="card-header" role="tab" id="heading4">
+					<h3 class="mb-0">
+						<a class="collapsed" data-toggle="collapse" href="#elem4" aria-expanded="false" aria-controls="elem4">
+							Mailet
+						</a>
+					</h3>
+				</div>
+				<div id="elem4" role="tab" aria-labelledby="heading4" class="element collapse">
+				<ul class="description">
+					<li class="property inline">
+						match: <input type="text" name="" value="RecipientIsLocal">
+					</li>
+					<li class="property inline">
+						class: <input type="text" name="" value="RecipientToLowerCase">
+					</li>
+				</ul>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="saver">
+		<button class="btn btn-primary">
+			SAVE
+		</button>
+	</div>
+
+</div>
+</body>
+</html>
