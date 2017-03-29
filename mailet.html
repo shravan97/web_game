@@ -4,6 +4,7 @@
 	<title>Mailets</title>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -26,6 +27,10 @@
 		{
 			border: 1px solid white;
 			color: gray;
+		}
+		input:focus
+		{
+			outline: none;
 		}
 		.collapsed, a.collapse
 		{
@@ -53,6 +58,19 @@
 		{
 			padding: 5px;
 		}
+		input#prop
+		{
+			color: black;
+			width: 80px;
+		}
+		i
+		{
+			cursor: pointer;
+		}
+		i:hover
+		{
+			color: blue;
+		}
 
 	</style>
 </head>
@@ -61,7 +79,10 @@
 <div class="wrapper container">
 	<h1>Processors</h1>
 	<div class="processor">
-		<h3>Processor</h3>
+		<h3>Processor
+		&nbsp;&nbsp;
+		<i class="fa fa-plus-square" data-toggle="modal" data-target="#exampleModalLong" aria-hidden="true"></i>
+		</h3>
 		<ul class="description">
 
 			<li class="property inline">
@@ -78,12 +99,14 @@
 						<a class="collapsed" data-toggle="collapse" href="#elem1" aria-expanded="false" aria-controls="elem1">
 							Mailet
 						</a>
+						&nbsp;&nbsp;
+						<i class="fa fa-plus-square" data-toggle="modal" data-target="#exampleModalLong" aria-hidden="true"></i>
 					</h3>
 				</div>
-				<div id="elem1" role="tab" aria-labelledby="headingTwo" class="element collapse">
+				<div id="elem1" role="tab" aria-labelledby="headingTwo" class="element collapse in">
 				<ul class="description">
 					<li class="property inline">
-						match: <input type="text" name="" value="All">
+						<input id="prop" type="text" name="" value="match">: <input type="text" name="" value="All">
 					</li>
 					<li class="property inline">
 						class: <input type="text" name="" value="PostmasterAlias">
@@ -98,9 +121,12 @@
 						<a class="collapsed" data-toggle="collapse" href="#elem2" aria-expanded="false" aria-controls="elem2">
 							Mailet
 						</a>
+						&nbsp;&nbsp;
+						<i class="fa fa-plus-square" data-toggle="modal" data-target="#exampleModalLong" aria-hidden="true"></i>
+
 					</h3>
 				</div>
-				<div id="elem2" role="tab" aria-labelledby="heading2" class="element collapse">
+				<div id="elem2" role="tab" aria-labelledby="heading2" class="element collapse in">
 				<ul class="description">
 					<li class="property inline">
 						match: <input type="text" name="" value="RelayLimit=30">
@@ -117,9 +143,12 @@
 						<a class="collapsed" data-toggle="collapse" href="#elem3" aria-expanded="false" aria-controls="elem3">
 							Mailet
 						</a>
+						&nbsp;&nbsp;
+						<i class="fa fa-plus-square" data-toggle="modal" data-target="#exampleModalLong" aria-hidden="true"></i>
+
 					</h3>
 				</div>
-				<div id="elem3" role="tab" aria-labelledby="heading2" class="element collapse">
+				<div id="elem3" role="tab" aria-labelledby="heading2" class="element collapse in">
 				<ul class="description">
 					<li class="property inline">
 						match: <input type="text" name="" value="SMTPAuthSuccessful">
@@ -138,7 +167,10 @@
 		
 	</div>
 	<div class="processor">
-		<h3>Processor</h3>
+		<h3>Processor
+		&nbsp;&nbsp;
+		<i class="fa fa-plus-square" data-toggle="modal" data-target="#exampleModalLong" aria-hidden="true"></i>
+		</h3>
 		<ul class="description">
 
 			<li class="property inline">
@@ -155,9 +187,12 @@
 						<a class="collapsed" data-toggle="collapse" href="#elem4" aria-expanded="false" aria-controls="elem4">
 							Mailet
 						</a>
+						&nbsp;&nbsp;
+						<i class="fa fa-plus-square" data-toggle="modal" data-target="#exampleModalLong" aria-hidden="true"></i>
+
 					</h3>
 				</div>
-				<div id="elem4" role="tab" aria-labelledby="heading4" class="element collapse">
+				<div id="elem4" role="tab" aria-labelledby="heading4" class="element collapse in">
 				<ul class="description">
 					<li class="property inline">
 						match: <input type="text" name="" value="RecipientIsLocal">
@@ -176,6 +211,29 @@
 		</button>
 	</div>
 
+</div>
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edition form</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Property<br>
+        <input type="text" name="" value="PropertyName"><br>
+        Value<br>
+        <input type="text" name="" value="PropertyValue"><br>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>
 </body>
 </html>
